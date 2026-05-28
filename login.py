@@ -9,7 +9,7 @@ def fazer_login():
     conexao = get_connection()
     cursor = conexao.cursor()
 
-    sql = "SELECT * FROM tb_usuario WHERE usu_email = %s AND usu_senha = %s"
+    sql = "SELECT usu_id, usu_nome FROM tb_usuario WHERE usu_email = %s AND usu_senha = %s"
     valores = (usuario, senha)
 
     cursor.execute(sql, valores)
@@ -19,8 +19,10 @@ def fazer_login():
     conexao.close()
 
     if resultado:
-        print("Login realizado!")
-        return True
+        usu_id = resultado[0]
+        usu_nome = resultado[1]
+        print(f"Login realizado! Bem-vindo, {usu_nome}!")
+        return usu_id
 
     print("Usuário ou senha incorretos!")
-    return False
+    return None

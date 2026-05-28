@@ -126,6 +126,7 @@ def deletar_empresa(emp_id):
     verificar = 'SELECT COUNT(*) FROM tb_produto WHERE pro_emp_id = %s'
     cursor.execute(verificar, (emp_id,))
     quantidade = cursor.fetchone()[0]
+    
 
     if quantidade > 0:
         cursor.close()

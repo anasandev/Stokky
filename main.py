@@ -118,7 +118,7 @@ def menu_empresa():
             print("Opção inválida!")
 
 
-def menu_produto():
+def menu_produto(usu_id):
     """Menu para gestão de produtos vinculados a uma empresa."""
     print("\n--- SELEÇÃO DE EMPRESA ---")
     empresas = listar_empresas()
@@ -166,7 +166,7 @@ def menu_produto():
                 qtd_inicial = 0
 
             try:
-                cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, emp_id, qtd_inicial)
+                cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, emp_id, qtd_inicial, usu_id)
                 print("✓ Produto cadastrado com sucesso!")
             except Exception as e:
                 print(f"✗ Erro ao cadastrar produto: {e}")
@@ -221,7 +221,7 @@ def menu_produto():
             print("Opção inválida!")
 
 
-def menu_estoque():
+def menu_estoque(usu_id):
     """Menu para movimentação e consulta de estoque."""
     while True:
         print("\n===== GESTÃO DE ESTOQUE =====")
@@ -248,7 +248,7 @@ def menu_estoque():
             pro_id = input("ID do produto: ")
             quantidade = input("Quantidade a adicionar: ")
             try:
-                adicionar_estoque(int(pro_id), int(quantidade))
+                adicionar_estoque(int(pro_id), int(quantidade), usu_id)
                 print("✓ Estoque atualizado com sucesso!")
             except Exception as e:
                 print(f"✗ Erro ao adicionar estoque: {e}")
@@ -258,7 +258,7 @@ def menu_estoque():
             pro_id = input("ID do produto: ")
             quantidade = input("Quantidade a remover: ")
             try:
-                remover_estoque(int(pro_id), int(quantidade))
+                remover_estoque(int(pro_id), int(quantidade), usu_id)
                 print("✓ Saída de estoque registrada com sucesso!")
             except Exception as e:
                 print(f"✗ Erro ao remover estoque: {e}")
@@ -361,7 +361,9 @@ def menu_relatorios():
             print("Opção inválida!")
 
 
-if login.fazer_login():
+usu_id = login.fazer_login()
+
+if usu_id:
 
     while True:
         print("\n" + "=" * 50)
@@ -378,9 +380,9 @@ if login.fazer_login():
         if opcao == "1":
             menu_empresa()
         elif opcao == "2":
-            menu_produto()
+            menu_produto(usu_id)
         elif opcao == "3":
-            menu_estoque()
+            menu_estoque(usu_id)
         elif opcao == "4":
             menu_relatorios()
         elif opcao == "5":

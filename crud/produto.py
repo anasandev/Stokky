@@ -2,7 +2,7 @@ from conexao import get_connection
 from crud.estoque import inicializar_estoque
 
 
-def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id, quantidade_inicial=0):
+def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_validade, pro_emp_id, quantidade_inicial=0, usu_id=None):
     conexao = get_connection()
     cursor = conexao.cursor()
 
@@ -35,7 +35,7 @@ def cadastrar_produto(pro_nome, pro_descricao, pro_marca, pro_preco, pro_data_va
         quantidade = 0
 
     if quantidade > 0:
-        inicializar_estoque(pro_id, quantidade)
+        inicializar_estoque(pro_id, quantidade, usu_id)
 
     cursor.close()
     conexao.close()
